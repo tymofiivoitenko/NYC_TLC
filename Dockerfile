@@ -1,5 +1,7 @@
 FROM python:3.9
-RUN pip install pandas
+RUN apt-get install wget
+RUN pip install pandas sqlalchemy psycopg2
 WORKDIR /app
-COPY pipeline.py pipeline.py
-ENTRYPOINT [ "python", "pipeline.py" ]
+COPY ingest_data.py ingest_data.py
+COPY resources/yellow_tripdata_2021-01.csv yellow_tripdata_2021-01.csv
+ENTRYPOINT [ "python", "ingest_data.py" ]
